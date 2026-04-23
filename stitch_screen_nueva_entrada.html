@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nueva Entrada - Cuaderno Editorial</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;family=Lora:ital,wght@0,400..700;1,400..700&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2C241B",
+                        "background-light": "#F9F6F0",
+                        "surface": "#FFFFFF",
+                        "text-main": "#2C241B",
+                        "muted": "#A8A39D",
+                        "accent": "#8B4513",
+                    },
+                    fontFamily: {
+                        "heading": ["'Playfair Display'", "serif"],
+                        "body": ["'Lora'", "serif"],
+                        "mono": ["'Courier Prime'", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "none": "0px",
+                        "sm": "0px",
+                        "md": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "2xl": "0px",
+                        "3xl": "0px",
+                        "full": "0px"
+                    },
+                    boxShadow: {
+                        'canvas': '0 10px 40px rgba(44, 36, 27, 0.05)',
+                        'float': '0 4px 20px rgba(44, 36, 27, 0.08)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Styles to match PRD requirements */
+        body {
+            background-color: theme('colors.background-light');
+            color: theme('colors.text-main');
+        }
+
+        /* Borderless inputs that blend into background */
+        .editorial-input {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .editorial-input:focus {
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
+
+        .editorial-input::placeholder {
+            color: theme('colors.muted');
+            transition: opacity 0.3s ease;
+        }
+
+        .editorial-input:focus::placeholder {
+            opacity: 0.3;
+        }
+
+        /* Error state */
+        .input-error {
+            border-bottom: 1px solid red;
+        }
+
+        /* Custom em-dash list */
+        .em-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .em-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .em-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: theme('colors.text-main');
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative font-body selection:bg-accent selection:text-white pb-32">
+<!-- Minimal Header / Back to Main -->
+<header class="w-full py-8 px-8 flex justify-between items-center fixed top-0 left-0 right-0 z-10 pointer-events-none">
+<a class="pointer-events-auto flex items-center gap-2 text-muted hover:text-primary transition-colors font-mono text-[13px] tracking-widest uppercase group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span>Volver</span>
+</a>
+<div class="font-heading italic text-muted opacity-50">Borrador</div>
+</header>
+<!-- Main Drafting Canvas -->
+<main class="flex-grow flex justify-center pt-32 px-4">
+<div class="w-full max-w-[680px] relative">
+<!-- Contextual Adder Button (Hover in margin) -->
+<div class="absolute -left-12 top-48 hidden md:flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer text-muted hover:text-accent">
+<span class="material-symbols-outlined text-2xl">add</span>
+</div>
+<article class="flex flex-col gap-8">
+<!-- Title Input -->
+<div class="relative group">
+<input class="editorial-input font-heading text-[48px] font-semibold leading-[1.2] text-primary" id="book-title" placeholder="Título del libro..." type="text" value=""/>
+<!-- Example Error State (hidden by default, shown here for structure) -->
+<!-- 
+                    <div class="absolute -bottom-6 left-0 flex items-center gap-2 text-red-600">
+                        <span class="font-mono text-[13px] tracking-wide uppercase">Falta el título</span>
+                    </div>
+                    -->
+</div>
+<!-- Author & Date Input -->
+<div class="flex items-center justify-between border-b border-muted/30 pb-4">
+<input class="editorial-input font-mono text-[18px] text-primary w-2/3" placeholder="Autor..." type="text"/>
+<input class="editorial-input font-mono text-[13px] tracking-widest uppercase text-muted text-right w-1/3" placeholder="MM/AAAA" type="text" value="10/2023"/>
+</div>
+<!-- Editor Area -->
+<div class="mt-8 relative">
+<!-- Textarea acting as simple rich text block -->
+<textarea class="editorial-input font-body text-[18px] leading-[1.7] text-primary min-h-[400px] resize-none" placeholder="Comienza a escribir tu resumen..."></textarea>
+</div>
+</article>
+</div>
+</main>
+<!-- Floating Action Bar -->
+<div class="fixed bottom-12 left-1/2 -translate-x-1/2 z-20">
+<div class="bg-surface border border-primary px-8 py-4 shadow-float flex items-center gap-6">
+<button class="font-mono text-[14px] font-bold uppercase tracking-wider text-muted hover:text-primary transition-colors">
+                Cancelar
+            </button>
+<div class="w-px h-4 bg-muted/30"></div>
+<button class="font-mono text-[14px] font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors flex items-center gap-2">
+<span>Guardar Entrada</span>
+<span class="material-symbols-outlined text-[16px]">bookmark_add</span>
+</button>
+</div>
+</div>
+</body></html>

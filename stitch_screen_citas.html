@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cuaderno Editorial - Páginas Marcadas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#cf6317",
+              "background-light": "#f8f7f6",
+              "background-dark": "#211811",
+            },
+            fontFamily: {
+              "display": ["Newsreader", "serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem", "sm": "0.125rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Newsreader', serif;
+            background-color: #f8f7f6; /* background-light */
+            color: #211811; /* background-dark acting as text color for contrast */
+        }
+        
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 4rem; /* 64px */
+        }
+        
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 3rem;
+        }
+
+        .quote-text {
+            font-size: 1.5rem; /* 24px */
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .quote-attribution {
+            font-family: 'Courier Prime', monospace; /* Fallback to monospace if Courier Prime not loaded, but we'll use Newsreader for consistency per instructions if needed, but PRD says Courier Prime for metadata. Wait, theme config says font-display is Newsreader. I will use a generic monospace or standard text styling with uppercase tracking as requested, but keep it elegant. Let's stick to Newsreader with uppercase tracking for the attribution to blend with the Tailwind config provided. Actually, PRD mentions Courier Prime, but Tailwind config only gives 'Newsreader'. I will use Newsreader uppercase tracking for attribution. */
+            font-size: 0.875rem; /* 14px */
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #71717a; /* Muted slate for contrast */
+        }
+    </style>
+</head>
+<body class="antialiased text-background-dark bg-background-light">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col lg:flex-row">
+<!-- Left Navigation Sidebar (Shared Component Logic applied) -->
+<aside class="w-full lg:w-[280px] lg:fixed lg:h-screen lg:overflow-y-auto border-r border-gray-200 bg-background-light shrink-0">
+<div class="flex flex-col h-full p-8 lg:p-10 justify-between">
+<div class="flex flex-col gap-10">
+<!-- Branding -->
+<div class="flex gap-4 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 shadow-sm border border-gray-200" data-alt="minimalist cream colored book spine with subtle texture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgyq-Rb7S7VVSg2SSyNTVSYEEJ6dl8iGJvq4P_Rds6dyVTeXo4l7QYTIG0eL_wqgA5QM2JNR0LNMESUpMu19Al394GR4Ca-RaFpzAfYn2We_harnyWMzkipqUFJXvjizSBH3H4sBpaobEwmKvgZ2dgARHaoD4OqGEPsC4S3tn-KqWh8FVLdI03fVTxIdV8l2Bb7iXsqIs46vf6q3hreYU7qb45aSa4pwilHefIjXR2PFDtJBLEinSkPZERUBcACO8MJuBWzgZ79vEy");'></div>
+<div class="flex flex-col">
+<h1 class="text-background-dark text-lg font-semibold tracking-tight">Cuaderno Editorial</h1>
+<p class="text-primary text-sm font-medium tracking-wide">El Diario del Lector</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-4 px-4 py-3 rounded-sm transition-colors duration-200 hover:bg-white hover:shadow-sm text-gray-600 hover:text-background-dark" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="book">book</span>
+<span class="text-sm font-semibold tracking-widest uppercase">Biblioteca</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-sm bg-white shadow-sm border-l-[3px] border-primary text-background-dark" href="#">
+<span class="material-symbols-outlined text-[20px] text-primary" data-icon="format_quote" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<span class="text-sm font-semibold tracking-widest uppercase text-primary">Citas</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-sm transition-colors duration-200 hover:bg-white hover:shadow-sm text-gray-600 hover:text-background-dark" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+<span class="text-sm font-semibold tracking-widest uppercase">Nueva Entrada</span>
+</a>
+</nav>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-[280px] p-8 lg:p-16 xl:p-24 max-w-[1200px] mx-auto w-full">
+<!-- Page Header -->
+<header class="mb-16 lg:mb-24">
+<h2 class="text-4xl lg:text-5xl font-bold tracking-tight text-background-dark">Páginas Marcadas</h2>
+<p class="mt-4 text-lg text-gray-600 max-w-2xl italic">Una colección de fragmentos, pensamientos y resonancias encontradas entre páginas.</p>
+</header>
+<!-- Masonry Gallery -->
+<div class="masonry-grid">
+<!-- Quote Card 1 -->
+<div class="masonry-item group p-6 -mx-6 rounded-sm transition-all duration-300 ease-in-out hover:bg-white hover:shadow-[0_10px_40px_rgba(33,24,17,0.05)] cursor-default">
+<div class="border-l-[3px] border-primary pl-6 py-2">
+<blockquote class="quote-text text-background-dark mb-6">
+                                "El mundo era tan reciente, que muchas cosas carecían de nombre, y para mencionarlas había que señalarlas con el dedo."
+                            </blockquote>
+<div class="text-right">
+<cite class="quote-attribution block font-bold text-background-dark not-italic">Cien años de soledad</cite>
+<span class="quote-attribution block mt-1">Gabriel García Márquez</span>
+</div>
+</div>
+</div>
+<!-- Quote Card 2 -->
+<div class="masonry-item group p-6 -mx-6 rounded-sm transition-all duration-300 ease-in-out hover:bg-white hover:shadow-[0_10px_40px_rgba(33,24,17,0.05)] cursor-default">
+<div class="border-l-[3px] border-primary pl-6 py-2">
+<blockquote class="quote-text text-background-dark mb-6">
+                                "No hay barrera, cerradura ni cerrojo que puedas imponer a la libertad de mi mente."
+                            </blockquote>
+<div class="text-right">
+<cite class="quote-attribution block font-bold text-background-dark not-italic">Una habitación propia</cite>
+<span class="quote-attribution block mt-1">Virginia Woolf</span>
+</div>
+</div>
+</div>
+<!-- Quote Card 3 -->
+<div class="masonry-item group p-6 -mx-6 rounded-sm transition-all duration-300 ease-in-out hover:bg-white hover:shadow-[0_10px_40px_rgba(33,24,17,0.05)] cursor-default">
+<div class="border-l-[3px] border-primary pl-6 py-2">
+<blockquote class="quote-text text-background-dark mb-6">
+                                "Escribo porque es la única forma que tengo de entender lo que pienso."
+                            </blockquote>
+<div class="text-right">
+<cite class="quote-attribution block font-bold text-background-dark not-italic">El año del pensamiento mágico</cite>
+<span class="quote-attribution block mt-1">Joan Didion</span>
+</div>
+</div>
+</div>
+<!-- Quote Card 4 -->
+<div class="masonry-item group p-6 -mx-6 rounded-sm transition-all duration-300 ease-in-out hover:bg-white hover:shadow-[0_10px_40px_rgba(33,24,17,0.05)] cursor-default">
+<div class="border-l-[3px] border-primary pl-6 py-2">
+<blockquote class="quote-text text-background-dark mb-6">
+                                "La memoria del corazón elimina los malos recuerdos y magnifica los buenos, y que gracias a ese artificio logramos sobrellevar el pasado."
+                            </blockquote>
+<div class="text-right">
+<cite class="quote-attribution block font-bold text-background-dark not-italic">El amor en los tiempos del cólera</cite>
+<span class="quote-attribution block mt-1">Gabriel García Márquez</span>
+</div>
+</div>
+</div>
+<!-- Quote Card 5 -->
+<div class="masonry-item group p-6 -mx-6 rounded-sm transition-all duration-300 ease-in-out hover:bg-white hover:shadow-[0_10px_40px_rgba(33,24,17,0.05)] cursor-default">
+<div class="border-l-[3px] border-primary pl-6 py-2">
+<blockquote class="quote-text text-background-dark mb-6">
+                                "Quería vivir profundamente y chupar toda la médula de la vida, vivir tan reciamente y espartanamente como para hacer huir todo lo que no fuera vida."
+                            </blockquote>
+<div class="text-right">
+<cite class="quote-attribution block font-bold text-background-dark not-italic">Walden</cite>
+<span class="quote-attribution block mt-1">Henry David Thoreau</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State (Hidden in this view, shown for reference structure) -->
+<!-- 
+                <div class="flex flex-col items-center justify-center min-h-[400px] text-center">
+                    <span class="material-symbols-outlined text-gray-300 text-6xl mb-6" data-icon="format_quote">format_quote</span>
+                    <h3 class="text-2xl font-bold text-gray-400 mb-2">Las paredes de esta galería están en blanco.</h3>
+                    <p class="text-gray-500 max-w-md">Guarda citas de tus libros leídos para verlas aparecer aquí.</p>
+                </div>
+                -->
+</main>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@theme {
+  --color-error-container: #ffdad6;
+  --color-primary: #984300;
+  --color-surface-container-high: #f9e4da;
+  --color-primary-fixed: #ffdbca;
+  --color-on-secondary-fixed: #321200;
+  --color-on-background: #241914;
+  --color-surface-container: #ffeae0;
+  --color-outline: #8a7266;
+  --color-inverse-surface: #3a2e28;
+  --color-secondary: #934b19;
+  --color-secondary-container: #ffa26a;
+  --color-outline-variant: #dec1b3;
+  --color-primary-container: #be5605;
+  --color-primary-fixed-dim: #ffb68e;
+  --color-on-primary-fixed: #331200;
+  --color-surface-tint: #9c4500;
+  --color-background: #fff8f6;
+  --color-on-tertiary-fixed-variant: #004a76;
+  --color-inverse-on-surface: #ffede5;
+  --color-on-secondary-container: #783603;
+  --color-on-error: #ffffff;
+  --color-surface-bright: #fff8f6;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #007abd;
+  --color-tertiary-fixed: #cee5ff;
+  --color-on-secondary-fixed-variant: #753401;
+  --color-error: #ba1a1a;
+  --color-surface-container-lowest: #ffffff;
+  --color-inverse-primary: #ffb68e;
+  --color-on-error-container: #93000a;
+  --color-on-surface: #241914;
+  --color-on-tertiary-fixed: #001d32;
+  --color-on-primary-container: #fffbff;
+  --color-tertiary: #006097;
+  --color-surface-dim: #ead6cd;
+  --color-surface-variant: #f3ded5;
+  --color-on-primary-fixed-variant: #773300;
+  --color-tertiary-fixed-dim: #96ccff;
+  --color-surface-container-highest: #f3ded5;
+  --color-on-primary: #ffffff;
+  --color-on-tertiary-container: #fdfcff;
+  --color-secondary-fixed-dim: #ffb68c;
+  --color-on-secondary: #ffffff;
+  --color-surface: #fff8f6;
+  --color-on-surface-variant: #574238;
+  --color-secondary-fixed: #ffdbc9;
+  --color-surface-container-low: #fff1eb;
+
+  --radius-DEFAULT: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --spacing-container-max: 800px;
+  --spacing-margin-page: 1.5rem;
+  --spacing-content-max: 680px;
+  --spacing-section-gap: 4rem;
+  --spacing-element-gap: 1rem;
+
+  --font-headline-lg: "Playfair Display", serif;
+  --font-body-italic: "Lora", serif;
+  --font-meta-label: "Courier Prime", monospace;
+  --font-headline-md: "Playfair Display", serif;
+  --font-display-xl: "Playfair Display", serif;
+  --font-quote-text: "Playfair Display", serif;
+  --font-body-lg: "Lora", serif;
+
+  --text-headline-lg: 3rem;
+  --text-headline-lg--line-height: 1.1;
+  --text-headline-lg--font-weight: 600;
+
+  --text-body-italic: 1.125rem;
+  --text-body-italic--line-height: 1.625;
+  --text-body-italic--font-weight: 400;
+
+  --text-meta-label: 13px;
+  --text-meta-label--letter-spacing: 0.15em;
+  --text-meta-label--font-weight: 400;
+
+  --text-headline-md: 2.25rem;
+  --text-headline-md--line-height: 1.2;
+  --text-headline-md--font-weight: 600;
+
+  --text-display-xl: 4rem;
+  --text-display-xl--line-height: 0.8;
+  --text-display-xl--font-weight: 600;
+
+  --text-quote-text: 1.5rem;
+  --text-quote-text--line-height: 1.5;
+  --text-quote-text--font-weight: 400;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.625;
+  --text-body-lg--font-weight: 400;
+
+  /* Nueva Entrada specifics */
+  --color-muted: #A8A39D;
+  --color-accent: #8B4513;
+  --color-text-main: #2C241B;
+  --color-background-light: #F9F6F0;
+
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Lora", serif;
+  --font-mono: "Courier Prime", monospace;
+  --font-display: "Newsreader", serif;
+
+  --shadow-canvas: 0 10px 40px rgba(44, 36, 27, 0.05);
+  --shadow-float: 0 4px 20px rgba(44, 36, 27, 0.08);
+}
+
+/* Citas (Páginas Marcadas) Specifics */
+.masonry-grid {
+  column-count: 1;
+  column-gap: 4rem; /* 64px */
+}
+
+@media (min-width: 1024px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 3rem;
+}
+
+.quote-text {
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.quote-attribution {
+  font-family: var(--font-display);
+  font-size: 0.875rem; /* 14px */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #71717a;
+}
+
+.editorial-accent {
+  border-left: 1px solid var(--color-primary);
+}
+
+.editorial-muted {
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+/* Borderless inputs that blend into background */
+.editorial-input {
+  /* background: transparent; */
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+}
+
+.editorial-input:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.editorial-input::placeholder {
+  color: var(--color-muted);
+  transition: opacity 0.3s ease;
+}
+
+.editorial-input:focus::placeholder {
+  opacity: 0.3;
+}
+
+.input-error {
+  border-bottom: 1px solid red;
+}
+
+.em-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.em-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.em-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-text-main);
+}
