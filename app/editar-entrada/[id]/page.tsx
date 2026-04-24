@@ -1,16 +1,17 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, use } from 'react';
 import { insforge } from '@/lib/insforge';
 import { useRouter } from 'next/navigation';
 
-export default function NuevaEntrada() {
+export default function EditarEntrada({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
-
+  const resolvedParams = use(params);
+  
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [date, setDate] = useState('10/2023');
+  const [date, setDate] = useState('');
   const [content, setContent] = useState('');
   
   const [keyLearnings, setKeyLearnings] = useState<string[]>(['']);
@@ -18,8 +19,44 @@ export default function NuevaEntrada() {
   
   const [isSaving, setIsSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Load entry data
+  useEffect(() => {
+    async function loadData() {
+      const { data, error } = await insforge.database
+        .from('entries')
+        .select('*')
+        .eq('id', resolvedParams.id)
+        .single();
+        
+      const { data: quotesData } = await insforge.database
+        .from('quotes')
+        .select('*')
+        .eq('entry_id', resolvedParams.id);
+        
+      if (error) {
+        alert("Error cargando la entrada: " + error.message);
+      } else if (data) {
+        setTitle(data.title || '');
+        setAuthor(data.author || '');
+        setDate(data.date_read || '');
+        setContent(data.content || '');
+        
+        if (data.key_learnings && Array.isArray(data.key_learnings) && data.key_learnings.length > 0) {
+          setKeyLearnings(data.key_learnings);
+        }
+        
+        if (quotesData && quotesData.length > 0) {
+          setQuotes(quotesData.map((q: any) => q.text));
+        }
+      }
+      setIsLoading(false);
+    }
+    loadData();
+  }, [resolvedParams.id]);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -27,7 +64,7 @@ export default function NuevaEntrada() {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [content]);
+  }, [content, isLoading]);
 
   const addKeyLearning = () => setKeyLearnings([...keyLearnings, '']);
   const updateKeyLearning = (index: number, value: string) => {
@@ -59,31 +96,30 @@ export default function NuevaEntrada() {
     
     const cleanKeyLearnings = keyLearnings.filter(kl => kl.trim() !== '');
     const cleanQuotes = quotes.filter(q => q.trim() !== '');
-
+    
     try {
       const { data, error } = await insforge.database
         .from('entries')
-        .insert([{ title, author, date_read: date, content, key_learnings: cleanKeyLearnings }])
-        .select();
+        .update({ title, author, date_read: date, content, key_learnings: cleanKeyLearnings })
+        .eq('id', resolvedParams.id);
 
       if (error) {
-        console.error("Error guardando entrada:", error);
-        alert("Hubo un error al guardar: " + error.message);
-      } else if (data && data.length > 0) {
-        const entryId = data[0].id;
+        console.error("Error actualizando entrada:", error);
+        alert("Hubo un error al actualizar: " + error.message);
+      } else {
+        // Re-create quotes by first deleting existing and then inserting
+        await insforge.database.from('quotes').delete().eq('entry_id', resolvedParams.id);
         
         if (cleanQuotes.length > 0) {
-          const quotesToInsert = cleanQuotes.map(q => ({ text: q, entry_id: entryId }));
-          const { error: quotesError } = await insforge.database.from('quotes').insert(quotesToInsert);
-          if (quotesError) {
-            console.error("Error guardando citas:", quotesError);
-          }
+          const quotesToInsert = cleanQuotes.map(q => ({ text: q, entry_id: resolvedParams.id }));
+          await insforge.database.from('quotes').insert(quotesToInsert);
         }
 
         setSaved(true);
         setTimeout(() => {
           setSaved(false);
-          router.push(`/libro/${entryId}`);
+          router.push(`/libro/${resolvedParams.id}`);
+          router.refresh();
         }, 1500);
       }
     } catch (err) {
@@ -95,18 +131,26 @@ export default function NuevaEntrada() {
   };
 
   const handleCancel = () => {
-    router.push('/');
+    router.push(`/libro/${resolvedParams.id}`);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex items-center justify-center font-body ml-0 md:ml-64">
+        Cargando...
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 flex flex-col relative pb-48 font-body selection:bg-accent selection:text-white ml-0 md:ml-64 w-full">
       {/* Minimal Header / Back to Main */}
       <header className="w-full py-8 px-8 flex justify-between items-center sticky top-0 z-10 pointer-events-none">
-        <Link href="/" className="pointer-events-auto flex items-center gap-2 text-muted hover:text-primary transition-colors font-mono text-[13px] tracking-widest uppercase group">
+        <Link href={`/libro/${resolvedParams.id}`} className="pointer-events-auto flex items-center gap-2 text-muted hover:text-primary transition-colors font-mono text-[13px] tracking-widest uppercase group">
           <span className="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
-          <span>Volver</span>
+          <span>Volver a la ficha</span>
         </Link>
-        <div className="font-heading italic text-muted opacity-50">Borrador</div>
+        <div className="font-heading italic text-muted opacity-50">Editando...</div>
       </header>
 
       {/* Main Drafting Canvas */}
@@ -235,7 +279,7 @@ export default function NuevaEntrada() {
                 disabled={isSaving}
                 className="font-mono text-[14px] font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors flex items-center gap-2 disabled:opacity-50"
               >
-                <span>{isSaving ? 'Guardando...' : 'Guardar Entrada'}</span>
+                <span>{isSaving ? 'Actualizando...' : 'Actualizar Entrada'}</span>
                 {!isSaving && <span className="material-symbols-outlined text-[16px]">bookmark_add</span>}
               </button>
             </>
