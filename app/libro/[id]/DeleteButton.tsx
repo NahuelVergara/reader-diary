@@ -30,7 +30,7 @@ export default function DeleteButton({ bookId }: { bookId: string }) {
     <button
       onClick={handleDelete}
       disabled={isDeleting}
-      className="font-mono text-[13px] tracking-widest uppercase text-red-700 font-bold hover:text-red-900 transition-colors duration-300 disabled:opacity-50"
+      className="font-mono text-[13px] tracking-widest uppercase text-red-700 dark:text-red-400 font-bold hover:text-red-900 dark:hover:text-red-300 transition-colors duration-300 disabled:opacity-50"
     >
       {isDeleting ? 'Eliminando...' : 'Eliminar'}
     </button>

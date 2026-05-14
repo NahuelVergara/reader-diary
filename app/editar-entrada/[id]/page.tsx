@@ -136,7 +136,7 @@ export default function EditarEntrada({ params }: { params: Promise<{ id: string
 
   if (isLoading) {
     return (
-      <div className="flex-1 flex items-center justify-center font-body ml-0 md:ml-64">
+      <div className="flex-1 flex items-center justify-center font-body ml-0 md:ml-64 text-text-main">
         Cargando...
       </div>
     );
@@ -150,7 +150,7 @@ export default function EditarEntrada({ params }: { params: Promise<{ id: string
           <span className="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
           <span>Volver a la ficha</span>
         </Link>
-        <div className="font-heading italic text-muted opacity-50">Editando...</div>
+        <div className="font-heading italic text-muted opacity-50 dark:text-stone-400">Editando...</div>
       </header>
 
       {/* Main Drafting Canvas */}
@@ -199,9 +199,9 @@ export default function EditarEntrada({ params }: { params: Promise<{ id: string
             </div>
 
             {/* Aprendizajes Clave Area */}
-            <div className="mt-12 pt-8 border-t border-[#A8A39D]">
+            <div className="mt-12 pt-8 border-t border-muted">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="font-mono text-[13px] tracking-widest uppercase text-[#A8A39D]">Aprendizajes Clave</h2>
+                <h2 className="font-mono text-[13px] tracking-widest uppercase text-muted">Aprendizajes Clave</h2>
                 <button onClick={addKeyLearning} className="text-primary hover:text-accent font-mono text-[13px] uppercase tracking-widest flex items-center gap-1">
                   <span className="material-symbols-outlined text-[16px]">add</span> Agregar
                 </button>
@@ -209,15 +209,15 @@ export default function EditarEntrada({ params }: { params: Promise<{ id: string
               <div className="flex flex-col gap-4">
                 {keyLearnings.map((kl, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <span className="text-[#8B4513] mt-2">—</span>
+                    <span className="text-accent mt-2">—</span>
                     <textarea
-                      className="editorial-input font-body text-lg leading-relaxed text-[#2C241B] w-full resize-none"
+                      className="editorial-input font-body text-lg leading-relaxed text-text-main w-full resize-none"
                       rows={2}
                       placeholder="Escribe un aprendizaje clave..."
                       value={kl}
                       onChange={(e) => updateKeyLearning(idx, e.target.value)}
                     />
-                    <button onClick={() => removeKeyLearning(idx)} className="text-[#A8A39D] hover:text-red-600 mt-2">
+                    <button onClick={() => removeKeyLearning(idx)} className="text-muted hover:text-red-600 dark:hover:text-red-400 mt-2">
                       <span className="material-symbols-outlined text-[20px]">close</span>
                     </button>
                   </div>
@@ -226,9 +226,9 @@ export default function EditarEntrada({ params }: { params: Promise<{ id: string
             </div>
 
             {/* Citas Area */}
-            <div className="mt-12 pt-8 border-t border-[#A8A39D]">
+            <div className="mt-12 pt-8 border-t border-muted">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="font-mono text-[13px] tracking-widest uppercase text-[#A8A39D]">Citas Destacadas</h2>
+                <h2 className="font-mono text-[13px] tracking-widest uppercase text-muted">Citas Destacadas</h2>
                 <button onClick={addQuote} className="text-primary hover:text-accent font-mono text-[13px] uppercase tracking-widest flex items-center gap-1">
                   <span className="material-symbols-outlined text-[16px]">add</span> Agregar
                 </button>
@@ -236,15 +236,15 @@ export default function EditarEntrada({ params }: { params: Promise<{ id: string
               <div className="flex flex-col gap-8">
                 {quotes.map((q, idx) => (
                   <div key={idx} className="flex items-start gap-3 group">
-                    <span className="material-symbols-outlined text-[#8B4513] mt-1 opacity-50">format_quote</span>
+                    <span className="material-symbols-outlined text-accent mt-1 opacity-50">format_quote</span>
                     <textarea
-                      className="editorial-input font-heading italic text-2xl text-[#8B4513] leading-relaxed w-full resize-none text-center bg-transparent"
+                      className="editorial-input font-heading italic text-2xl text-accent leading-relaxed w-full resize-none text-center bg-transparent"
                       rows={3}
                       placeholder="Escribe una cita memorable..."
                       value={q}
                       onChange={(e) => updateQuote(idx, e.target.value)}
                     />
-                    <button onClick={() => removeQuote(idx)} className="text-[#A8A39D] hover:text-red-600 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onClick={() => removeQuote(idx)} className="text-muted hover:text-red-600 dark:hover:text-red-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="material-symbols-outlined text-[20px]">close</span>
                     </button>
                   </div>
@@ -258,7 +258,7 @@ export default function EditarEntrada({ params }: { params: Promise<{ id: string
 
       {/* Floating Action Bar */}
       <div className="fixed bottom-24 md:bottom-12 left-1/2 md:left-[calc(50%+8rem)] -translate-x-1/2 z-20">
-        <div className="bg-surface border border-primary px-8 py-4 shadow-float flex items-center gap-6 transition-all">
+        <div className="bg-surface dark:bg-surface-card border border-primary px-8 py-4 shadow-float flex items-center gap-6 transition-all">
           {saved ? (
             <div className="font-mono text-[14px] font-bold uppercase tracking-wider text-green-700 flex items-center gap-2">
               <span className="material-symbols-outlined text-[16px]">check_circle</span>

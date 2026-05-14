@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-background-light: #1A1614;
+  --color-text-main: #EDE4D8;
+  --color-muted: #78716C;
+  --color-accent: #FF9E6C;
+  --color-primary: #FFB68E;
+  --color-on-surface-variant: #A8A29E;
+  --color-surface: #25211E;
+  --color-surface-container: #2A2522;
+  --color-surface-card: #25211E;
+  --color-outline-variant: #57534E;
+  --color-outline: #78716C;
+  --color-border: #57534E;
+}
+
 @theme {
   --color-error-container: #ffdad6;
   --color-primary: #984300;
@@ -101,6 +118,8 @@
   --color-accent: #8B4513;
   --color-text-main: #2C241B;
   --color-background-light: #F9F6F0;
+  --color-surface-card: #FFFFFF;
+  --color-border: #A8A39D;
 
   --font-heading: "Playfair Display", serif;
   --font-body: "Lora", serif;
@@ -142,6 +161,18 @@
   color: #71717a;
 }
 
+.dark .quote-attribution {
+  color: #78716C;
+}
+
+.dark .masonry-item:hover {
+  background-color: #25211E;
+}
+
+.dark .masonry-item:hover .quote-text {
+  color: #EDE4D8;
+}
+
 .editorial-accent {
   border-left: 1px solid var(--color-primary);
 }
@@ -170,6 +201,10 @@
   transition: opacity 0.3s ease;
 }
 
+.dark .editorial-input::placeholder {
+  color: #78716C;
+}
+
 .editorial-input:focus::placeholder {
   opacity: 0.3;
 }
@@ -194,4 +229,8 @@
   position: absolute;
   left: 0;
   color: var(--color-text-main);
+}
+
+.dark .drop-cap::first-letter {
+  color: #FF9E6C;
 }
